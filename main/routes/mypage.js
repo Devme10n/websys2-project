@@ -31,3 +31,27 @@ router.get('/inquiry/list', async (req, res, next) => {});
 router.get('/inquiry/form', async (req, res, next) => {});
 //1대1 문의
 router.post('/inquiry/:id', async (req, res, next) => {});
+
+//리뷰기록
+
+//get 리뷰 전체 조회
+router.get('/review', async (req, res, next) => {});
+//리뷰 조회
+router.get('/review/:id', async (req, res, next) => {});
+//리뷰 작성 폼
+router.get('/review/form', async (req, res, next) => {});
+//리뷰 작성/업데이트 post
+router.post('/review/:id', async (req, res, next) => {});
+//리뷰 삭제
+router.get('/review/delete/:id', async (req, res, next) => {});
+
+//쿠폰
+
+//쿠폰 조회
+router.get('/coupon', async (req, res, next) => {});
+//쿠폰 등록
+router.post('/coupon', async (req, res, next) => {});
+//쿠폰 폼
+router.get('/coupon/form', async (req, res, next) => {});
+//쿠폰 리스트
+router.get('/coupon/list', async (req, res, next) => {});
