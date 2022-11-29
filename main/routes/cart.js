@@ -1,30 +1,21 @@
 const path = require('path');
 
 const express = require('express');
-const Comment = require('../models/comment');
+const Cart = require('../models/cart');
 
 const { isLoggedIn } = require('./helpers');
 
 
 const router = express.Router();
 
-router.route('/')
-    .get(isLoggedIn, (req, res) => {
-        res.locals.title = require('../package.json').name;
-        res.locals.userId = req.user.id;
-        res.render('comment');
-    })
-    .post(async (req, res, next) => {
-        const { comment } = req.body;
-        const userId = req.user.id;
+// 장바구니 전체조회
+router.get('/carts', async (req, res, next) => {});
 
-        try {
-            await Comment.create({ userId, comment });
-            res.redirect('/');
-        } catch (err) {
-            console.error(err);
-            next(err);
-        }
-    });
+// 장바구니 물품 삭제
+// get 대신에 delete 쓰면 안되나?
+router.get('/carts/:id', async (req, res, next) => {});
+
+// 장바구니 물품 개수 변경
+router.post('/carts/:id', async (req, res, next) => {});
 
 module.exports = router;
