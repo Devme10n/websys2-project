@@ -1,4 +1,3 @@
-//찜 목록
 //찜 목록 조회
 router.get('/pick/list', async (req, res, next) => {});
 //찜 목록 삭제
