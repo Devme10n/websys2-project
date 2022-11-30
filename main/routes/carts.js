@@ -7,6 +7,12 @@ const { isLoggedIn } = require('./helpers');
 
 
 const router = express.Router();
+/** 
+Carts DB
+userId  foreignKey
+goodsId foreignKey
+물건 개수   int
+ */
 
 //장바구니 전체 조회
 /** 
@@ -59,16 +65,16 @@ router.get('/delete/:id', async (req, res, next) => {
 
 //물건 개수 변경 update
 /** 
-req: req.user.id, req.body.id
+req: req.user.id, req.params.id
 res: update 여부
-body: 
+body: req.body.물건 개수(?)
  */
 router.post('/update/:id', async (req, res, next) => {
     try {
         const result = await Carts.update({
-            description: req.body.description // description -> 개수(count?)
+            description: req.body.description // description -> 물건 개수(count?)
         }, {
-            where: { id: req.body.id }
+            where: { id: req.params.id }
         });
 
         if (result) res.redirect('/');
