@@ -17,9 +17,30 @@ router.get('/', async (req, res, next) => {
 
 });
 
+// #################################################################
+// have to add?
+// #################################################################
+//장바구니 하나 조회
+/** 
+req: req.user.id, req.params.id
+res: 장바구니 품목 하나, res.locals.cart = {} //객체
+ */
+router.get('/:id', async (req, res, next) => {
+    try {
+        const cart = await Carts.findOne({
+            where: { id: req.params.id },
+            attributes: ['id', 'name', 'description'] // 장바구니에 들어가는 내용들
+        });
+        res.json(cart);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
 //삭제
 /** 
-req: req.params.id
+req: req.user.id, req.params.id
 res: delete 여부
  */
 router.get('/delete/:id', async (req, res, next) => {
@@ -38,7 +59,7 @@ router.get('/delete/:id', async (req, res, next) => {
 
 //물건 개수 변경 update
 /** 
-req: req.body.id
+req: req.user.id, req.body.id
 res: update 여부
 body: 
  */
