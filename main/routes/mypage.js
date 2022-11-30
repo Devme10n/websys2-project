@@ -1,13 +1,13 @@
-//찜목록
-//찜목록 조회
+//찜 목록
+//찜 목록 조회
 router.get('/pick/list', async (req, res, next) => {});
-//찜목록 삭제
+//찜 목록 삭제
 router.get('/pick/list/delete/:id', async (req, res, next) => {});
 
-//구매기록
-//구매기록 조회
+//구매 기록
+//구매 기록 조회
 router.get('/orders', async (req, res, next) => {});
-//구매기록 삭제
+//구매 기록 삭제
 //질문:delete 사용 가능 여부
 router.get('/order/delete/:id', async (req, res, next) => {});
 ///get 배송 조회-/mypage/order
@@ -32,9 +32,14 @@ router.get('/inquiry/form', async (req, res, next) => {});
 //1대1 문의
 router.post('/inquiry/:id', async (req, res, next) => {});
 
-//리뷰기록
+//리뷰 기록
 
 //get 리뷰 전체 조회
+/*
+리뷰 조회 api
+REQ
+res
+*/
 router.get('/review', async (req, res, next) => {});
 //리뷰 조회
 router.get('/review/:id', async (req, res, next) => {});
