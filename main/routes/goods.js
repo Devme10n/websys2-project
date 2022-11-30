@@ -30,9 +30,5 @@ router.get('/package/:id/reviews/form',async(req, res, next) => {});
 //post 작성/수정
 router.post('/product/:id/reviews',async(req, res, next) => {});
 router.post('/package/:id/reviews',async(req, res, next) => {});
-//get 삭제
-//질문: delete 사용 여부
-router.get('/delete/product/:id/reviews',async(req, res, next) => {});
-router.get('/delete/package/:id/reviews',async(req, res, next) => {});
 
 module.exports = router;

@@ -29,7 +29,7 @@ router.post('/refund/:id', async (req, res, next) => {});
 router.get('/inquiry/list', async (req, res, next) => {});
 //1대1 문의 폼
 router.get('/inquiry/form', async (req, res, next) => {});
-//1대1 문의
+//1대1 문의 조회
 router.post('/inquiry/:id', async (req, res, next) => {});
 
 //리뷰 기록
@@ -37,8 +37,10 @@ router.post('/inquiry/:id', async (req, res, next) => {});
 //get 리뷰 전체 조회
 /*
 리뷰 조회 api
-REQ
-res
+http method: GET
+request:
+response:
+body: 
 */
 router.get('/review', async (req, res, next) => {});
 //리뷰 조회
