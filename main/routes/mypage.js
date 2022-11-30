@@ -15,15 +15,15 @@ router.get('/order/:id', async (req, res, next) => {});
 
 //물품 교환 페이지 폼
 //질문:exchange라고 써도 되는가? RESTful한가? → exchangeItem
-router.get('/order/:id/exchange/form', async (req, res, next) => {});
+router.get('/exchange/:id/form', async (req, res, next) => {});
 //물품 교환
-router.post('/order/:id/exchange', async (req, res, next) => {});
+router.post('/exchange/:id', async (req, res, next) => {});
 
 //환불 페이지 폼
 // RESTful한가?
-router.get('/order/:id/refund/form', async (req, res, next) => {});
+router.get('/refund/:id/form', async (req, res, next) => {});
 //환불
-router.post('/order/:id/refund', async (req, res, next) => {});
+router.post('/refund/:id', async (req, res, next) => {});
 
 //1대1 문의 리스트
 router.get('/inquiry/list', async (req, res, next) => {});
