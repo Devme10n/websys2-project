@@ -1,34 +1,69 @@
 //찜 목록 조회
-router.get('/pick/list', async (req, res, next) => {});
+/** 
+req: req.params.id 로그인된 아이디
+res: 로그인된 유저의 pick/list 객체
+ */
+router.get('/pick/list', async (req, res, next) => {
+});
 //찜 목록 삭제
+/** 
+req: req.params.id
+res: 로그인된 유저의 pick/list의 goods=:id 인 물품 삭제
+ */
 router.get('/pick/list/delete/:id', async (req, res, next) => {});
 
 //구매 기록
 //구매 기록 조회
+/**
+req:: req.params.id
+res:: 로그인된 유저의 구매기록 조회
+##################################################################
+order가 purchase로 바뀌다면 어떤식으로 처리 해야할까?
+##################################################################
+ */
 router.get('/orders', async (req, res, next) => {});
 //구매 기록 삭제
-//질문:delete 사용 가능 여부
 router.get('/order/delete/:id', async (req, res, next) => {});
 ///get 배송 조회-/mypage/order
+/**
+req: req.goods.id (로그인된 유저가 주문할 상품 id)
+res: 로그인 된 유저가 주문한 물품의 배송 상태
+ */
 router.get('/order/:id', async (req, res, next) => {});
 
 //물품 교환 페이지 폼
-//질문:exchange라고 써도 되는가? RESTful한가? → exchangeItem
 router.get('/exchange/:id/form', async (req, res, next) => {});
 //물품 교환
+/**
+####################################################################
+물품의 배송상태는 어디서 어떻게 처리하는게 좋을까요?
+구현을 어떤식으로 해야할지 잘 모르겠습니다!
+####################################################################
+req: 배송 전인 물품의 id, 변경할 물품의 id
+res: 물품이 배송 전이라면  교환 (200)/ 물품이 배송 중이라면 실패()
+body: 배송상태의 변경
+ */
 router.post('/exchange/:id', async (req, res, next) => {});
 
 //환불 페이지 폼
 // RESTful한가?
 router.get('/refund/:id/form', async (req, res, next) => {});
 //환불
+/** :id 는 goods 상품 번호
+body: 변경된 상품 번호
+*/
 router.post('/refund/:id', async (req, res, next) => {});
 
 //1대1 문의 리스트
+
 router.get('/inquiry/list', async (req, res, next) => {});
 //1대1 문의 폼
 router.get('/inquiry/form', async (req, res, next) => {});
 //1대1 문의 조회
+/**
+req: req.goods.id
+res: 로그인된 아이디가 문의한 goods.id의 1대1 문의 기록
+*/
 router.post('/inquiry/:id', async (req, res, next) => {});
 
 //리뷰 기록
