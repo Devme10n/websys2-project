@@ -28,12 +28,12 @@ router.route('/')
     });
 
 //장바구니 전체 조회
-router.get('/carts', async (req, res, next) => {});
+router.get('/', async (req, res, next) => {});
 
 //삭제
-router.get('/carts/:id', async (req, res, next) => {});
+router.get('/delete/:id', async (req, res, next) => {});
 
 //물건 개수 변경 update
-router.post('/carts/:id', async (req, res, next) => {});
+router.post('/update/:id', async (req, res, next) => {});
 
 module.exports = router;
