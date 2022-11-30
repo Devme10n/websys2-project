@@ -4,9 +4,6 @@ const Goods = require('../models/goods');
 
 const router = express.Router();
 
-router.route('/')
-    .get(async (req, res, next) => {})
-
 //get 물품 조회
 router.get('/product/:id', async (req, res, next) => {});
 //get 세트 조회
