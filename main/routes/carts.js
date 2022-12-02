@@ -20,24 +20,16 @@ req: req.user.id
 res: 장바구니 목록, res.locals.carts = {} // 리스트? 객체?
  */
 router.get('/', async (req, res, next) => {
-
-});
-
-// #################################################################
-// have to add?
-// #################################################################
-//장바구니 하나 조회
-/** 
-req: req.user.id, req.params.id
-res: 장바구니 품목 하나, res.locals.cart = {} //객체
- */
-router.get('/:id', async (req, res, next) => {
     try {
-        const cart = await Carts.findOne({
-            where: { id: req.params.id },
-            attributes: ['id', 'name', 'description'] // 장바구니에 들어가는 내용들
+        //로그인된 유저의 carts DB에서 cart list를 가져옴
+        const carts = await Carts.findAll({
+            attributes: ['id']
         });
-        res.json(cart);
+
+        res.locals.title = require('../package.json').name;
+        res.locals.port = process.env.PORT;
+        res.locals.users = carts.map(v => v.id);
+        res.render('carts');
     } catch (err) {
         console.error(err);
         next(err);
@@ -46,16 +38,17 @@ router.get('/:id', async (req, res, next) => {
 
 //삭제
 /** 
-req: req.user.id, req.params.id
-res: delete 여부
+req: goods.id
+res:
  */
 router.get('/delete/:id', async (req, res, next) => {
     try {
+        //Carts 객체에서 Goods id로 삭제
         const result = await Carts.destroy({
             where: { id: req.params.id }
         });
 
-        if (result) res.redirect('/'); // ?
+        if (result) res.redirect('/');
         else next('Not deleted!')
     } catch (err) {
         console.error(err);
@@ -65,16 +58,23 @@ router.get('/delete/:id', async (req, res, next) => {
 
 //물건 개수 변경 update
 /** 
-req: req.user.id, req.params.id
-res: update 여부
-body: req.body.물건 개수(?)
+req: 
+res: 
+body:
+###########################################################
+물품 갯수에 대해서 count를 사용하는게 편할까요?
+없다면 변경하려는 물품 개수가 기존보다 많거나 적은것에 따라서 전략을 사용해서
+구현해보고 싶습니다.
+DB 물품 관리 어떤식으로 하는게 좋을까요?
+###########################################################
  */
 router.post('/update/:id', async (req, res, next) => {
     try {
+        //carts 객체에서 검색한 물품의 개수를 변경함
         const result = await Carts.update({
-            description: req.body.description // description -> 물건 개수(count?)
+            description: req.body.description
         }, {
-            where: { id: req.params.id }
+            where: { id: req.body.id }
         });
 
         if (result) res.redirect('/');
