@@ -9,16 +9,12 @@ module.exports = class User extends Sequelize.Model {
                 primaryKey: true
             },
             password: {
-                type: Sequelize.STRING(100),
+                type: Sequelize.TEXT,
                 allowNull: true
             },
             name: {
                 type: Sequelize.STRING(20),
                 allowNull: false
-            },
-            description: {
-                type: Sequelize.TEXT,
-                allowNull: true
             }
         }, {
             sequelize,
