@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const User = require('./user');
-const Product = require('./prodcut');
+const Product = require('./product');
 const Package = require('./package');
 const Category = require('./category');
 const Review = require('./review');
@@ -40,7 +40,7 @@ Review.init(sequelize);
 Order.init(sequelize);
 Cart.init(sequelize);
 Inquiry.init(sequelize);
-Package.init(sequelize);
+Pick.init(sequelize);
 Coupon.init(sequelize);
 
 User.associate(db);
@@ -51,7 +51,7 @@ Review.associate(db);
 Order.associate(db);
 Cart.associate(db);
 Inquiry.associate(db);
-Package.associate(db);
+Pick.associate(db);
 Coupon.associate(db);
 
 module.exports = db;
