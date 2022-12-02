@@ -9,8 +9,7 @@ router.get('/product/:id', async (req, res, next) => {
     try {
         //product에서 product id로 가져오기
         const product = await Product.findOne({
-            where: { productId: req.params.id },
-            attributes: ['productId', 'name','price','discount','imgUlrs', 'description']
+            where: { productId: req.params.id }
         });
         res.json(product);
     } catch (err) {
@@ -23,8 +22,7 @@ router.get('/package/:id', async (req, res, next) => {
     try {
         //product에서 product id로 가져오기
         const package = await Package.findOne({
-            where: { packageid: req.params.id },
-            attributes: ['packageId', 'name','price','discount','imgUlrs', 'description']
+            where: { packageid: req.params.id }
         });
         res.json(package);
     } catch (err) {
