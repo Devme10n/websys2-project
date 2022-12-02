@@ -14,18 +14,6 @@ router.route('/')
         res.locals.userId = req.user.id;
         res.render('mypage');
     })
-    .post(async (req, res, next) => {
-        const { mypage } = req.body;
-        const userId = req.user.id;
-        try {
-            await Mypage.create({ userId, mypage });
-            res.redirect('/');
-        } catch (err) {
-            console.error(err);
-            next(err);
-        }
-    });
-
 
 //찜 목록 조회
 /** 
@@ -58,9 +46,6 @@ router.get('/pick/delete/:id', async (req, res, next) => {
 /**
 req:: req.params.id
 res:: 로그인된 유저의 구매기록 조회
-##################################################################
-order가 purchase로 바뀌다면 어떤식으로 처리 해야할까?
-##################################################################
  */
 router.get('/orders', async (req, res, next) => {});
 //구매 기록 삭제
@@ -89,10 +74,6 @@ router.get('/order/:id', async (req, res, next) => {});
 router.get('/exchange/:id/form', async (req, res, next) => {});
 //물품 교환
 /**
-####################################################################
-물품의 배송상태는 어디서 어떻게 처리하는게 좋을까요?
-구현을 어떤식으로 해야할지 잘 모르겠습니다!
-####################################################################
 req: 배송 전인 물품의 id, 변경할 물품의 id
 res: 물품이 배송 전이라면  교환 (200)/ 물품이 배송 중이라면 실패()
 body: 배송상태의 변경
