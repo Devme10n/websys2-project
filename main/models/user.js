@@ -4,21 +4,21 @@ module.exports = class User extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             id: {
-                type: Sequelize.STRING(100),
+                type: Sequelize.SMALLINT,
                 allowNull: false,
                 primaryKey: true
             },
             password: {
-                type: Sequelize.STRING(100),
+                type: Sequelize.TEXT,
                 allowNull: true
             },
             name: {
                 type: Sequelize.STRING(20),
                 allowNull: false
             },
-            description: {
-                type: Sequelize.TEXT,
-                allowNull: true
+            nickname: {
+                type: Sequelize.STRING(100),
+                allowNull: false
             }
         }, {
             sequelize,
@@ -33,6 +33,10 @@ module.exports = class User extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.User.hasMany(db.Comment, { foreignKey: 'userId', sourceKey: 'id', onDelete: 'cascade' });
+        db.User.hasMany(db.Review, { foreignKey: 'userId', sourceKey: 'id' });
+        db.User.hasMany(db.Order, { foreignKey: 'userId', sourceKey: 'id' });
+        db.User.hasMany(db.Inquiry, { foreignKey: 'userId', sourceKey: 'id' });
+        db.User.hasMany(db.Pick, { foreignKey: 'userId', sourceKey: 'id' });
+        db.User.hasOne(db.Coupon, { foreignKey: 'userId', sourceKey: 'id' });
     }
 };
