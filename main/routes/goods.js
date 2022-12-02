@@ -18,15 +18,11 @@ thirdProductId
  */
 
 //get 물품 조회
-/** 
-req: req.params.id
-res: 찾은 물품 객체
- */
 router.get('/product/:id', async (req, res, next) => {
     try {
-        const product = await Goods.findOne({
-            where: { id: req.params.id },
-            attributes: ['id', 'name', 'description'] // product 내용
+        //product에서 product id로 가져오기
+        const product = await Product.findOne({
+            where: { productId: req.params.id }
         });
         res.json(product);
     } catch (err) {
@@ -35,15 +31,11 @@ router.get('/product/:id', async (req, res, next) => {
     }
 });
 //get 세트 조회
-/** 
-req: req.params.id
-res: 찾은 패키지 물품 객체
- */
 router.get('/package/:id', async (req, res, next) => {
     try {
-        const package = await Carts.findOne({
-            where: { id: req.params.id },
-            attributes: ['id', 'name', 'description'] // package 내용 -> product 내용 다 불러와야함 // 이중으로 db안에 외래키로 찾을라면 where문 두번 쳐야하나?
+        //product에서 product id로 가져오기
+        const package = await Package.findOne({
+            where: { packageid: req.params.id }
         });
         res.json(package);
     } catch (err) {
@@ -61,13 +53,9 @@ router.get('/package/:id', async (req, res, next) => {
  */
 
 //post 물품 장바구니 등록 
-/** 
-req: req.params.id, req.user
-res: post success, res.render(/product/:id)
-body: req.user.id, req.body.productId, req.body.count
- */
-router.post('/product/:id/carts', async (req, res, next) => {
-    const { productId, count } = req.body;
+router.post('/product/carts', async (req, res, next) => {
+    const userId = req.user.id;
+    const { productId, count } = req.body; // 
 
     const cartProduct = await Carts.findOne({ where: { productId } }); // DB 이름
     if (cartProduct) { // 이미 장바구니에 들어간 상품이면 장바구니에 하나 더 넣기
@@ -75,11 +63,10 @@ router.post('/product/:id/carts', async (req, res, next) => {
         next();
         return;
     }
-
     try {
         await Carts.create({ // DB 이름
-            id,
-            count
+            userId,
+            productId
         });
 
         res.redirect('/');
@@ -90,14 +77,15 @@ router.post('/product/:id/carts', async (req, res, next) => {
 });
 //post 세트 장바구니 등록 
 /** 
-req: req.params.id, req.user
+req: req.user
 res: post success, res.render(/package/:id)
 body: req.user.id, req.body.id, req.body.count
  */
-router.post('/package/:id/carts', async (req, res, next) => {
-    const { id, count } = req.body; // 
+router.post('/package/carts', async (req, res, next) => {
+    const userId = req.user.id;
+    const { packageId, count } = req.body; // 
 
-    const cartPackage = await Carts.findOne({ where: { id } }); // DB 이름
+    const cartPackage = await Carts.findOne({ where: { packageId } }); // DB 이름
     if (cartPackage) { // 이미 장바구니에 들어간 상품이면 장바구니에 하나 더 넣기
         count: count+1;
         next();
@@ -106,8 +94,8 @@ router.post('/package/:id/carts', async (req, res, next) => {
 
     try {
         await Carts.create({ // DB 이름
-            id,
-            count
+            userId,
+            packageId
         });
 
         res.redirect('/');
@@ -118,53 +106,84 @@ router.post('/package/:id/carts', async (req, res, next) => {
 });
 
 //post 물품 찜목록 등록 
-/** 
-req: req.params.id, req.user
-res: post success, res.render(/product/:id)
-body: req.user.id, req.body.id, req.body.prefer
- */
-router.post('/product/:id/pick', async (req, res, next) => {});
-//post 세트 찜목록 등록 
-/** 
-req: req.params.id, req.user
-res: post success, res.render(/package/:id)
-body: req.user.id, req.body.id, req.body.prefer
- */
-router.post('/package/:id/pick', async (req, res, next) => {});
+router.post('/product/pick', async (req, res, next) => {
+    const userId = req.user.id;
+    const { productId } = req.body; 
+    try {
+        await Pick.create({ // DB 이름
+            userId,
+            productId
+        });
 
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+//post 세트 찜목록 등록 
+router.post('/package/pick', async (req, res, next) => {
+    const userId = req.user.id;
+    const { packageId } = req.body; // 
+    try {
+        await Pick.create({ // DB 이름
+            userId,
+            packageId
+        });
+
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
 //리뷰
 //질문: 외부 리뷰 어떻게 처리할 지
-//리뷰 조회
-/** 
-req: req.params.id
-res: res.render(/product/:id/reviews)
- */
-router.get('/product/:id/reviews',async(req, res, next) => {});
-//작성 폼
-/** 
-req: req.params.id
-res: res.render(/product/:id/reviews/form)
- */
-router.get('/product/:id/reviews/form',async(req, res, next) => {});
-/** 
-req: req.params.id
-res: res.render(/package/:id/reviews/form)
- */
-router.get('/package/:id/reviews/form',async(req, res, next) => {});
-//post 작성/수정
-/** 
-req: req.params.id
-res: 
-body: description
- */
-router.post('/product/:id/reviews',async(req, res, next) => {
+//선택한 물품 리뷰 전체 조회
+router.get('/product/:id/reviews',async(req, res, next) => {
+    try {
+        //굿즈 아이디로 연관된 review 가져오기
+        const goods = await Goods.findOne({
+            where: { id: req.params.id }
+        });
 
+        if (goods) {
+            const reviews = await goods.getReviews();
+            res.json(reviews);
+        } else
+            next(`There is no user with ${req.params.id}.`);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
 });
-/** 
-req: req.params.id
-res: 
-body: 
- */
-router.post('/package/:id/reviews',async(req, res, next) => {});
+//작성 폼
+router.get('/product/:id/review/form',async(req, res, next) => {});
+router.get('/package/:id/review/form',async(req, res, next) => {});
+//post 작성/수정
+router.post('/product/review',async(req, res, next) => {
+        const { productId, title, rate, description, imgUrls } = req.body;
+        const userId = req.user.id;
+
+        try {
+            await Review.create({ userId, productId, title, rate, description, imgUrls });
+            res.redirect('/');
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+});
+router.post('/package/reviews',async(req, res, next) => {
+    const { packageId, title, rate, description, imgUrls } = req.body;
+    const userId = req.user.id;
+
+    try {
+        await Review.create({ userId, packageId, title, rate, description, imgUrls });
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
 
 module.exports = router;
