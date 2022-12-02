@@ -1,16 +1,57 @@
+const path = require('path');
+
+const express = require('express');
+const Comment = require('../models/mypage');
+
+const { isLoggedIn } = require('./helpers');
+
+
+const router = express.Router();
+
+router.route('/')
+    .get(isLoggedIn, (req, res) => {
+        res.locals.title = require('../package.json').name;
+        res.locals.userId = req.user.id;
+        res.render('mypage');
+    })
+    .post(async (req, res, next) => {
+        const { mypage } = req.body;
+        const userId = req.user.id;
+        try {
+            await Mypage.create({ userId, mypage });
+            res.redirect('/');
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    });
+
+
 //찜 목록 조회
 /** 
 req: req.params.id 로그인된 아이디
-res: 로그인된 유저의 pick/list 객체
+res: 로그인된 유저의 pick 객체
  */
-router.get('/pick/list', async (req, res, next) => {
+router.get('/pick', async (req, res, next) => {
 });
 //찜 목록 삭제
 /** 
 req: req.params.id
-res: 로그인된 유저의 pick/list의 goods=:id 인 물품 삭제
+res: 로그인된 유저의 pick의 goods=:id 인 물품 삭제
  */
-router.get('/pick/list/delete/:id', async (req, res, next) => {});
+router.get('/pick/delete/:id', async (req, res, next) => {
+    try {
+        const result = await Pick.destroy({
+            where: { id: req.params.id }
+        });
+
+        if (result) res.redirect('/');
+        else next('Not deleted!')
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
 
 //구매 기록
 //구매 기록 조회
@@ -23,7 +64,20 @@ order가 purchase로 바뀌다면 어떤식으로 처리 해야할까?
  */
 router.get('/orders', async (req, res, next) => {});
 //구매 기록 삭제
-router.get('/order/delete/:id', async (req, res, next) => {});
+router.get('/order/delete/:id', async (req, res, next) => {
+    try {
+        //orders 아이디로 검색해서 Orders에서 삭제
+        const result = await Orders.destroy({
+            where: { id: req.params.id }
+        });
+
+        if (result) res.redirect('/');
+        else next('Not deleted!')
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
 ///get 배송 조회-/mypage/order
 /**
 req: req.goods.id (로그인된 유저가 주문할 상품 id)
