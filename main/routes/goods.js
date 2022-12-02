@@ -90,9 +90,9 @@ router.post('/package/carts', async (req, res, next) => {
 //post 물품 찜목록 등록 
 router.post('/product/pick', async (req, res, next) => {
     const userId = req.user.id;
-    const { produckId, count } = req.body; // 
+    const { productId, count } = req.body; // 
 
-    const pickProduck = await Pick.findOne({ where: { produckId } }); // DB 이름
+    const pickProduck = await Pick.findOne({ where: { productId } }); // DB 이름
     if (pickProduck) { // 이미 장바구니에 들어간 상품이면 장바구니에 하나 더 넣기
         count: count+1;
         next();
@@ -102,7 +102,7 @@ router.post('/product/pick', async (req, res, next) => {
     try {
         await Pick.create({ // DB 이름
             userId,
-            produckIdId
+            productId
         });
 
         res.redirect('/');
