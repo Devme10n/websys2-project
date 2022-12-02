@@ -36,7 +36,7 @@ router.get('/package/:id', async (req, res, next) => {
 //질문:장바구니 라우터에 있어야 하는가? 물품 라우터에 있어야 하는가?
 //post 물품 장바구니 등록 
 router.post('/product/carts', async (req, res, next) => {
-    const userId = req.user.id;
+    const id = req.user.id;
     const { productId, count } = req.body; // 
 
     const cartProduct = await Carts.findOne({ where: { productId } }); // DB 이름
@@ -47,7 +47,7 @@ router.post('/product/carts', async (req, res, next) => {
     }
     try {
         await Carts.create({ // DB 이름
-            userId,
+            id,
             packageId
         });
 
@@ -64,7 +64,7 @@ res: post success, res.render(/package/:id)
 body: req.user.id, req.body.id, req.body.count
  */
 router.post('/package/carts', async (req, res, next) => {
-    const userId = req.user.id;
+    const id = req.user.id;
     const { packageId, count } = req.body; // 
 
     const cartPackage = await Carts.findOne({ where: { packageId } }); // DB 이름
@@ -76,7 +76,7 @@ router.post('/package/carts', async (req, res, next) => {
 
     try {
         await Carts.create({ // DB 이름
-            userId,
+            id,
             packageId
         });
 
@@ -89,7 +89,7 @@ router.post('/package/carts', async (req, res, next) => {
 
 //post 물품 찜목록 등록 
 router.post('/product/pick', async (req, res, next) => {
-    const userId = req.user.id;
+    const id = req.user.id;
     const { productId, count } = req.body; // 
 
     const pickProduck = await Pick.findOne({ where: { productId } }); // DB 이름
@@ -101,7 +101,7 @@ router.post('/product/pick', async (req, res, next) => {
 
     try {
         await Pick.create({ // DB 이름
-            userId,
+            id,
             productId
         });
 
@@ -113,7 +113,7 @@ router.post('/product/pick', async (req, res, next) => {
 });
 //post 세트 찜목록 등록 
 router.post('/package/pick', async (req, res, next) => {
-    const userId = req.user.id;
+    const id = req.user.id;
     const { packageId, count } = req.body; // 
 
     const pickPackage = await Pick.findOne({ where: { packageId } }); // DB 이름
@@ -125,7 +125,7 @@ router.post('/package/pick', async (req, res, next) => {
 
     try {
         await Pick.create({ // DB 이름
-            userId,
+            id,
             packageId
         });
 
@@ -161,10 +161,10 @@ router.get('/package/:id/reviews/form',async(req, res, next) => {});
 //post 작성/수정
 router.post('/product/:id/reviews',async(req, res, next) => {
         const { reviews } = req.body;
-        const userId = req.user.id;
+        const id = req.user.id;
 
         try {
-            await Reviews.create({ userId,reviews,produckId });
+            await Reviews.create({ id,reviews,produckId });
             res.redirect('/');
         } catch (err) {
             console.error(err);
@@ -173,10 +173,10 @@ router.post('/product/:id/reviews',async(req, res, next) => {
 });
 router.post('/package/:id/reviews',async(req, res, next) => {
     const { reviews } = req.body;
-    const userId = req.user.id;
+    const id = req.user.id;
 
     try {
-        await Reviews.create({ userId, reviews,packageId });
+        await Reviews.create({ id, reviews,packageId });
         res.redirect('/');
     } catch (err) {
         console.error(err);
