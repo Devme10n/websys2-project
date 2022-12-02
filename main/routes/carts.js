@@ -7,6 +7,12 @@ const { isLoggedIn } = require('./helpers');
 
 
 const router = express.Router();
+/** 
+Carts DB
+userId  foreignKey
+goodsId foreignKey
+물건 개수   int
+ */
 
 //장바구니 전체 조회
 /** 

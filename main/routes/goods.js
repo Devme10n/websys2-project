@@ -3,6 +3,19 @@ const bcrypt = require('bcrypt')
 const Goods = require('../models/goods');
 
 const router = express.Router();
+/** 
+product DB
+id
+~~~
+ */
+
+/** 
+package DB
+id
+firstProductId foreignKey -> product.id // 첫번째 productId 라고 쓰고 싶은데 이렇게 쓰는게 맞나?
+secondProductId
+thirdProductId
+ */
 
 //get 물품 조회
 router.get('/product/:id', async (req, res, next) => {
@@ -31,7 +44,14 @@ router.get('/package/:id', async (req, res, next) => {
     }
 });
 
-//질문:장바구니 라우터에 있어야 하는가? 물품 라우터에 있어야 하는가?
+/** 
+비회원인 경우 // 얘를 처리를 어떻게 하지?
+    장바구니에 추가
+    req.user = null;
+회원인 경우
+    req.user = 사용자 정보 // 교수님 코드 확인해보기!
+ */
+
 //post 물품 장바구니 등록 
 router.post('/product/carts', async (req, res, next) => {
     const userId = req.user.id;
