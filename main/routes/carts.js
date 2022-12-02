@@ -32,7 +32,7 @@ router.get('/', async (req, res, next) => {
 
 //삭제
 /** 
-req:
+req: goods.id
 res:
  */
 router.get('/delete/:id', async (req, res, next) => {
@@ -54,7 +54,13 @@ router.get('/delete/:id', async (req, res, next) => {
 /** 
 req: 
 res: 
-body: 
+body:
+###########################################################
+물품 갯수에 대해서 count를 사용하는게 편할까요?
+없다면 변경하려는 물품 개수가 기존보다 많거나 적은것에 따라서 전략을 사용해서
+구현해보고 싶습니다.
+DB 물품 관리 어떤식으로 하는게 좋을까요?
+###########################################################
  */
 router.post('/update/:id', async (req, res, next) => {
     try {
