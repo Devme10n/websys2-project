@@ -8,7 +8,11 @@ module.exports = class Package extends Sequelize.Model {
                 allowNull: false,
                 primaryKey: true
             },
-            productId: {
+            productId1: {
+                type: Sequelize.SMALLINT,
+                allowNull: false,
+            },
+            productId2: {
                 type: Sequelize.SMALLINT,
                 allowNull: false,
             },
@@ -20,7 +24,7 @@ module.exports = class Package extends Sequelize.Model {
                 type: Sequelize.SMALLINT,
                 allowNull: true,
                 defaultValue: null
-            },
+            },           
             description: {
                 type: Sequelize.TEXT,
                 allowNull: false               
@@ -37,9 +41,11 @@ module.exports = class Package extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.Package.hasMany(db.Review, { foreignKey: 'pacakgeId', sourceKey: 'id' });
-        db.Package.hasMany(db.Order, { foreignKey: 'pacakgeId', sourceKey: 'id' });
-        db.Package.hasMany(db.Cart, { foreignKey: 'pacakgeId', sourceKey: 'id' });
-        db.Package.hasMany(db.Pick, { foreignKey: 'pacakgeId', sourceKey: 'id' });
+        // db.Package.hasMany(db.Review, { foreignKey: 'pacakgeId', sourceKey: 'id' });
+        // db.Package.hasMany(db.Order, { foreignKey: 'pacakgeId', sourceKey: 'id' });
+        // db.Package.hasMany(db.Cart, { foreignKey: 'pacakgeId', sourceKey: 'id' });
+        // db.Package.hasMany(db.Pick, { foreignKey: 'pacakgeId', sourceKey: 'id' });
+        db.Package.belongsTo(db.Product, { foreignKey: 'productId1', sourceKey: 'id' });
+        db.Package.belongsTo(db.Product, { foreignKey: 'productId2', sourceKey: 'id' });
     }
 };

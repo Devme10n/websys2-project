@@ -19,17 +19,17 @@ goodsId foreignKey
 req: req.user.id
 res: 장바구니 목록, res.locals.carts = {} // 리스트? 객체?
  */
-router.get('/', async (req, res, next) => {
+router.get('/', isLoggedIn, async (req, res, next) => {
     try {
-        //로그인된 유저의 carts DB에서 cart list를 가져옴
-        const carts = await Carts.findAll({
-            attributes: ['id']
+        const user = await Cart.findAll({
+            where: { id: req.user.id }
         });
 
-        res.locals.title = require('../package.json').name;
-        res.locals.port = process.env.PORT;
-        res.locals.users = carts.map(v => v.id);
-        res.render('carts');
+        if (user) {
+            const cart = await user.getCarts();
+            res.json(cart);
+        } else
+            next(`There is no cart with ${req.user.id}.`);
     } catch (err) {
         console.error(err);
         next(err);
