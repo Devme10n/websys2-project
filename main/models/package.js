@@ -47,5 +47,10 @@ module.exports = class Package extends Sequelize.Model {
         // db.Package.hasMany(db.Pick, { foreignKey: 'pacakgeId', sourceKey: 'id' });
         db.Package.belongsTo(db.Product, { foreignKey: 'productId1', sourceKey: 'id' });
         db.Package.belongsTo(db.Product, { foreignKey: 'productId2', sourceKey: 'id' });
+        /** 
+         * 1. alias 별명 주고 각기 include하기 
+         * 출처: https://velog.io/@yzkim9501/sequelize-%ED%95%9C%EA%B0%9C%EC%9D%98-%EB%AA%A8%EB%8D%B8%EC%97%90-%EB%98%91%EA%B0%99%EC%9D%80-%EB%AA%A8%EB%8D%B8%EC%9D%84-%EB%91%90%EB%B2%88-join%EC%8B%9C%ED%82%A4%EA%B3%A0-%EC%8B%B6%EC%9D%84-%EB%95%8C
+         * 2. packageId 따로 주기 
+         * */
     }
 };
