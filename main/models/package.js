@@ -37,9 +37,9 @@ module.exports = class Package extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.Package.hasMany(db.Review, { foreignKey: 'productId', sourceKey: 'id' });
-        db.Package.hasMany(db.Order, { foreignKey: 'productId', sourceKey: 'id' });
-        db.Package.hasMany(db.Cart, { foreignKey: 'productId', sourceKey: 'id' });
-        db.Package.hasMany(db.Pick, { foreignKey: 'productId', sourceKey: 'id' });
+        db.Package.hasMany(db.Review, { foreignKey: 'pacakgeId', sourceKey: 'id' });
+        db.Package.hasMany(db.Order, { foreignKey: 'pacakgeId', sourceKey: 'id' });
+        db.Package.hasMany(db.Cart, { foreignKey: 'pacakgeId', sourceKey: 'id' });
+        db.Package.hasMany(db.Pick, { foreignKey: 'pacakgeId', sourceKey: 'id' });
     }
 };
