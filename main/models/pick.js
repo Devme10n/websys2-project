@@ -4,7 +4,7 @@ module.exports = class Pick extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             userId: {
-                type: Sequelize.SMALLINT,
+                type: Sequelize.STRING(100),
                 allowNull: false,
                 primaryKey: true
             },
