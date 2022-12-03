@@ -9,7 +9,7 @@ module.exports = class Coupon extends Sequelize.Model {
                 primaryKey: true
             },
             userId: {
-                type: Sequelize.SMALLINT,
+                type: Sequelize.STRING(100),
                 allowNull: false,
             },
             used: {
