@@ -1,6 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt')
-const Goods = require('../models/goods');
+const Package = require('../models/package');
+const Product = require('../models/product');
+
 
 const router = express.Router();
 /** 
@@ -22,7 +24,7 @@ router.get('/product/:id', async (req, res, next) => {
     try {
         //product에서 product id로 가져오기
         const product = await Product.findOne({
-            where: { productId: req.params.id }
+            where: { id: req.params.id }
         });
         res.json(product);
     } catch (err) {
@@ -35,7 +37,19 @@ router.get('/package/:id', async (req, res, next) => {
     try {
         //product에서 product id로 가져오기
         const package = await Package.findOne({
-            where: { packageid: req.params.id }
+            where: { id: req.params.id },
+            include: [
+                {
+                  model: Product,
+                  as: "productId1",
+                //   attributes: ["user_id", "nickname", "email"],
+                },
+                {
+                  model: Product,
+                  as: "productId1",
+                //   attributes: ["user_id", "nickname", "email"],
+                },
+              ],
         });
         res.json(package);
     } catch (err) {

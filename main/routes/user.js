@@ -4,23 +4,7 @@ const User = require('../models/user');
 
 const router = express.Router();
 
-router.route('/')
-    .get(async (req, res, next) => {
-        try {
-            const users = await User.findAll({
-                attributes: ['id']
-            });
-
-            res.locals.title = require('../package.json').name;
-            res.locals.port = process.env.PORT;
-            res.locals.users = users.map(v => v.id);
-            res.render('user');
-        } catch (err) {
-            console.error(err);
-            next(err);
-        }
-    })
-    .post(async (req, res, next) => {
+router.post('/', async (req, res, next) => {
         const { id, password, name, description } = req.body;
 
         if (!password) return next('비밀번호를 입력하세요.');
@@ -71,23 +55,6 @@ router.get('/delete/:id', async (req, res, next) => {
 
         if (result) res.redirect('/');
         else next('Not deleted!')
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
-
-router.get('/:id/comments', async (req, res, next) => {
-    try {
-        const user = await User.findOne({
-            where: { id: req.params.id }
-        });
-
-        if (user) {
-            const comments = await user.getComments();
-            res.json(comments);
-        } else
-            next(`There is no user with ${req.params.id}.`);
     } catch (err) {
         console.error(err);
         next(err);
