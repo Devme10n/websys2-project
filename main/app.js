@@ -14,6 +14,8 @@ const passportConfig = require('./passport'); // passport/index.js
 
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
+const cartsRouter = require('./routes/carts');
+
 const indexRouter = require('./routes');
 
 dotenv.config();
@@ -60,6 +62,7 @@ app.use(passport.session()); // (req, res, next) => {}를 리턴
 
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
+app.use('/carts', cartsRouter);
 app.use('/', indexRouter);
 
 app.use((req, res, next) => {
