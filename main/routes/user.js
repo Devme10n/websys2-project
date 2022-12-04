@@ -39,7 +39,7 @@ router.post('/update', async (req, res, next) => {
             where: { id: req.body.id }
         });
 
-        if (result) res.redirect('/');
+        if (result) res.status(200).send("사용자 정보가 업데이트 되었습니다.");
         else next('Not updated!')
     } catch (err) {
         console.error(err);
