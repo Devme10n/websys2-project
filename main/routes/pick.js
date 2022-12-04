@@ -1,6 +1,6 @@
 const express = require('express');
 const Pick = require('../models/pick');
-const { Product, Package } = require('../models');
+const { Product, Package, Category } = require('../models');
 
 const router = express.Router();
 
@@ -9,12 +9,22 @@ router.get('/', async(req, res, next) => {
     try {
         const picklist = await Pick.findAll({
             where: { userId: req.user.id },
-            include: [
-            {
-                model: Product
+            include: [{
+                model: Product,
+                include: [{
+                    model: Category,
+                    attributes: [ "name" ]
+                }]
             },
             {
-                model: Package
+                model: Package,
+                include: [{
+                    model: Product,
+                    include: [{
+                        model: Category,
+                        attributes: [ "name" ]
+                    }]
+                }]
             }]
         });
          res.json(picklist);
