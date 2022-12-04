@@ -5,8 +5,7 @@ module.exports = class Cart extends Sequelize.Model {
         return super.init({
             userId: {
                 type: Sequelize.STRING(100),
-                allowNull: false,
-                primaryKey: true
+                allowNull: false
             },
             productId: {
                 type: Sequelize.SMALLINT,
