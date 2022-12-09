@@ -16,9 +16,9 @@ module.exports = class User extends Sequelize.Model {
                 type: Sequelize.STRING(20),
                 allowNull: false
             },
-            description: {
+            phonenumber: {
                 type: Sequelize.TEXT,
-                allowNull: true
+                allowNull: false
             }
         }, {
             sequelize,
@@ -33,6 +33,11 @@ module.exports = class User extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.User.hasMany(db.Comment, { foreignKey: 'userId', sourceKey: 'id', onDelete: 'cascade' });
+        db.User.hasMany(db.Review, { foreignKey: 'userId', sourceKey: 'id' });
+        db.User.hasMany(db.Order, { foreignKey: 'userId', sourceKey: 'id' });
+        db.User.hasMany(db.Cart, { foreignKey: 'userId', sourceKey: 'id' });
+        db.User.hasMany(db.Inquiry, { foreignKey: 'userId', sourceKey: 'id' });
+        db.User.hasMany(db.Pick, { foreignKey: 'userId', sourceKey: 'id' });
+        db.User.hasOne(db.Coupon, { foreignKey: 'userId', sourceKey: 'id' });
     }
 };
