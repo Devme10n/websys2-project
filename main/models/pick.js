@@ -4,16 +4,10 @@ module.exports = class Pick extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             userId: {
-                type: Sequelize.SMALLINT,
-                allowNull: false,
-                primaryKey: true
+                type: Sequelize.STRING(100),
+                allowNull: false
             },
             productId: {
-                type: Sequelize.SMALLINT,
-                allowNull: true,
-                defaultValue: null
-            },
-            packageId: {
                 type: Sequelize.SMALLINT,
                 allowNull: true,
                 defaultValue: null
@@ -36,6 +30,5 @@ module.exports = class Pick extends Sequelize.Model {
     static associate(db) {
         db.Pick.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
         db.Pick.belongsTo(db.Product, { foreignKey: 'productId', targetKey: 'id' });
-        db.Pick.belongsTo(db.Package, { foreignKey: 'packageId', targetKey: 'id' });
     }
 };

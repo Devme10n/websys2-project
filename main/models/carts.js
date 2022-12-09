@@ -1,25 +1,22 @@
 const Sequelize = require('sequelize');
 
-module.exports = class Inquiry extends Sequelize.Model {
+module.exports = class Cart extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             userId: {
                 type: Sequelize.STRING(100),
-                allowNull: false,
-            },
-            title: {
-                type: Sequelize.TEXT,
                 allowNull: false
             },
-            description: {
-                type: Sequelize.TEXT,
-                allowNull: false,
+            productId: {
+                type: Sequelize.SMALLINT,
+                allowNull: true,
+                defaultValue: null
             }
         }, {
         sequelize,
         timestamps: false,
-        modelName: 'Inquiry',
-        tableName: 'inquirys',
+        modelName: 'Cart',
+        tableName: 'carts',
         paranoid: false,
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
@@ -27,6 +24,7 @@ module.exports = class Inquiry extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.Inquiry.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
+        db.Cart.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
+        db.Cart.belongsTo(db.Product, { foreignKey: 'productId', targetKey: 'id' });
     }
 };
