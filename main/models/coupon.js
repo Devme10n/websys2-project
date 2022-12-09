@@ -3,10 +3,9 @@ const Sequelize = require('sequelize');
 module.exports = class Coupon extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
-            id: {
+            couponId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
-                primaryKey: true
             },
             userId: {
                 type: Sequelize.STRING(100),

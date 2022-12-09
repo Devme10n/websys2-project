@@ -10,14 +10,18 @@ const nunjucks = require('nunjucks');
 const { sequelize } = require('./models');
 
 const passport = require('passport');
-const passportConfig = require('./passport'); // passport/index.js
+const passportConfig = require('./passport');
 
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
 const cartRouter = require('./routes/cart');
-const goodRouter = require('./routes/good');
+const couponRouter = require('./routes/coupon');
+const categoryRouter = require('./routes/category');
+const reviewRouter = require('./routes/review');
+const productRouter = require('./routes/product');
 const pickRouter = require('./routes/pick');
-const indexRouter = require('./routes');
+const orderRouter = require('./routes/order');
+const inquiryRouter = require('./routes/inquiry');
 
 dotenv.config();
 passportConfig();
@@ -54,19 +58,18 @@ app.use(
 );
 
 app.use(passport.initialize());
-app.use(passport.session()); // (req, res, next) => {}를 리턴
-/** 1. 모든 요청에 passport.session() 미들웨어가 passport.deserializeUser 메서드 호출
-2. req.session에 저장된 아이디로 데이터베이스에서 사용자 조회
-3. 조회된 사용자 정보를 req.user에 저장
-4. 라우터에서 req.user 객체 사용 가능 */
-// req.session.user : user.id만 저장
+app.use(passport.session());
 
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/cart', cartRouter);
-app.use('/good', goodRouter);
+app.use('/coupon',couponRouter);
+app.use('/category',categoryRouter);
+app.use('/product', productRouter);
+app.use('/review', reviewRouter);
 app.use('/pick', pickRouter);
-app.use('/', indexRouter);
+app.use('/order',orderRouter);
+app.use('/inquiry',inquiryRouter);
 
 app.use((req, res, next) => {
     res.locals.title = require('./package.json').name;

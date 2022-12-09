@@ -3,11 +3,6 @@ const Sequelize = require('sequelize');
 module.exports = class Inquiry extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
-            id: {
-                type: Sequelize.SMALLINT,
-                allowNull: false,
-                primaryKey: true
-            },
             userId: {
                 type: Sequelize.STRING(100),
                 allowNull: false,

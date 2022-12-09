@@ -1,50 +1,43 @@
 const express = require('express');
 const Pick = require('../models/pick');
-const { Product, Package, Category } = require('../models');
+const { Product, Category } = require('../models');
+
+const { isLoggedIn } = require('./helpers');
 
 const router = express.Router();
 
-// 찜 전체 조회
-router.get('/', async(req, res, next) => {
+// 찜 목록 전체 조회
+router.get('/', isLoggedIn ,async(req, res, next) => {
     try {
-        const picklist = await Pick.findAll({
-            where: { userId: req.user.id },
+        const pickList = await Pick.findAll({
+            where: { userId: req.user.id, preferred: true },
             include: [{
                 model: Product,
                 include: [{
                     model: Category,
                     attributes: [ "name" ]
                 }]
-            },
-            {
-                model: Package,
-                include: [{
-                    model: Product,
-                    include: [{
-                        model: Category,
-                        attributes: [ "name" ]
-                    }]
-                }]
             }]
         });
-         res.json(picklist);
+        if (pickList) res.status(200).json({"result": "success", "pickList": pickList});
+        else next(res.status(400).json({"result": "fail", "error": '사용자 계정을 찾지 못했습니다.' }))
     } catch (err) {
         console.error(err);
         next(err);
     }
 });
 
-// product 찜 등록
-router.post('/product', async (req, res, next) => {
+// 찜 목록 등록/수정
+router.post('/product', isLoggedIn, async (req, res, next) => {
     const userId = req.user.id;
-    const { id, productId, preferred } = req.body
+    const { productId, preferred } = req.body
     const pick = await Pick.findOne({
         where: { userId, productId },
         attributes: [ 'preferred' ]
      });
 
-    if (pick != null) { // update가 안됨
-        const updatedpreferred = !pick.dataValues.preferred //[질문] 이렇게 해도 되요?
+    if (pick != null) {
+        const updatedpreferred = !pick.dataValues.preferred
         try {
             const result = await Pick.update({
                 preferred: updatedpreferred
@@ -54,9 +47,8 @@ router.post('/product', async (req, res, next) => {
                     productId: req.body.productId
                 }
             });
-    
-            if (result) res.status(200).send("찜 상태가 변경되었습니다.");
-            else next('Not updated!')
+            if (result) res.status(200).json({"result": "success", "message": "찜 상태가 변경되었습니다."});
+            else next(res.status(400).json({"result": "fail", "error": '찜 상태 변경 실패' }))
         } catch (err) {
             console.error(err);
             next(err);
@@ -65,58 +57,11 @@ router.post('/product', async (req, res, next) => {
     else {
         try {
             await Pick.create({
-                id,
                 userId: userId,
                 productId,
                 preferred
             });
-    
-            res.status(200).send("찜 등록이 완료되었습니다.");;
-        } catch (err) {
-            console.error(err);
-            next(err);
-        }
-    }
-});
-
-// package 찜 등록
-router.post('/package', async (req, res, next) => {
-    const userId = req.user.id;
-    const { id, packageId, preferred } = req.body
-    const pick = await Pick.findOne({
-        where: { userId, packageId },
-        attributes: [ 'preferred' ]
-     });
-
-    if (pick != null) { // update가 안됨
-        const updatedpreferred = !pick.dataValues.preferred //[질문] 이렇게 해도 되요?
-        try {
-            const result = await Pick.update({
-                preferred: updatedpreferred
-            }, {
-                where: {
-                    userId: req.user.id,
-                    packageId: req.body.packageId
-                }
-            });
-    
-            if (result) res.status(200).send("찜 상태가 변경되었습니다.");
-            else next('Not updated!')
-        } catch (err) {
-            console.error(err);
-            next(err);
-        }
-    }
-    else {
-        try {
-            await Pick.create({
-                id,
-                userId: userId,
-                packageId,
-                preferred
-            });
-    
-            res.status(200).send("찜 등록이 완료되었습니다.");;
+            res.status(200).json({"result": "success", "message": "찜 등록이 완료되었습니다."});
         } catch (err) {
             console.error(err);
             next(err);

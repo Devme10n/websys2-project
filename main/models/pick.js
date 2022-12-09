@@ -12,11 +12,6 @@ module.exports = class Pick extends Sequelize.Model {
                 allowNull: true,
                 defaultValue: null
             },
-            packageId: {
-                type: Sequelize.SMALLINT,
-                allowNull: true,
-                defaultValue: null
-            },
             preferred: {
                 type: Sequelize.BOOLEAN,
                 allowNull: false
@@ -35,6 +30,5 @@ module.exports = class Pick extends Sequelize.Model {
     static associate(db) {
         db.Pick.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
         db.Pick.belongsTo(db.Product, { foreignKey: 'productId', targetKey: 'id' });
-        db.Pick.belongsTo(db.Package, { foreignKey: 'packageId', targetKey: 'id' });
     }
 };

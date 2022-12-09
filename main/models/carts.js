@@ -11,11 +11,6 @@ module.exports = class Cart extends Sequelize.Model {
                 type: Sequelize.SMALLINT,
                 allowNull: true,
                 defaultValue: null
-            },
-            packageId: {
-                type: Sequelize.SMALLINT,
-                allowNull: true,
-                defaultValue: null
             }
         }, {
         sequelize,
@@ -31,6 +26,5 @@ module.exports = class Cart extends Sequelize.Model {
     static associate(db) {
         db.Cart.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
         db.Cart.belongsTo(db.Product, { foreignKey: 'productId', targetKey: 'id' });
-        db.Cart.belongsTo(db.Package, { foreignKey: 'packageId', targetKey: 'id' });
     }
 };

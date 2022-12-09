@@ -3,21 +3,11 @@ const Sequelize = require('sequelize');
 module.exports = class Review extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
-            id: {
-                type: Sequelize.SMALLINT,
-                allowNull: false,
-                primaryKey: true
-            },
             userId: {
                 type: Sequelize.STRING(100),
                 allowNull: false,
             },
             productId: {
-                type: Sequelize.SMALLINT,
-                allowNull: true,
-                defaultValue: null
-            },
-            packageId: {
                 type: Sequelize.SMALLINT,
                 allowNull: true,
                 defaultValue: null
@@ -55,6 +45,5 @@ module.exports = class Review extends Sequelize.Model {
     static associate(db) {
         db.Review.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
         db.Review.belongsTo(db.Product, { foreignKey: 'productId', targetKey: 'id' });
-        db.Review.belongsTo(db.Package, { foreignKey: 'packageId', targetKey: 'id' });
     }
 };
