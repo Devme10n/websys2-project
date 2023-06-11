@@ -2,8 +2,6 @@
 
 : 쇼핑몰 API 설계 프로젝트
 
-</br>
-
 ### 핵심기능
 
 - 로그인
@@ -14,17 +12,13 @@
 - 1대1 문의
 - 리뷰
 
-</br>
-
 ### ERD
 
-<iframe width="560" height="315" src='https://dbdiagram.io/embed/62d962d20d66c746552398f4'> </iframe>
+![ERD](https://github.com/max990624/websys2-project/assets/39523433/5bc03a96-d00d-4139-9365-653b66037773)
 
-</br>
 
 ### [REST API 명세서](https://documenter.getpostman.com/view/24114901/2s93sc4YLZ)
 
-</br>
 
 ### 깃 커밋 규칙
 
