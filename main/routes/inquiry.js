@@ -7,7 +7,7 @@ const { isLoggedIn } = require('./helpers');
 const router = express.Router();
 
 
-// 1대1 문의 작성
+//1대1 문의 작성
 router.post('/',isLoggedIn, async(req, res, next) => {
     const userId = req.user.id;
     const { title, description } = req.body;
@@ -24,7 +24,7 @@ router.post('/',isLoggedIn, async(req, res, next) => {
         next(err);
     }
 });
-// 1대1 문의 수정
+//문의 수정
 router.post('/update',isLoggedIn,async (req, res, next) => {
     try {
         const result = await Inquiry.update({  
@@ -42,7 +42,7 @@ router.post('/update',isLoggedIn,async (req, res, next) => {
     }
 });
 
-// 1대1 문의 삭제
+//문의 삭제
 router.get('/delete/:id',isLoggedIn, async (req, res, next) => {
     try {
         const result = await Inquiry.destroy({
@@ -56,16 +56,15 @@ router.get('/delete/:id',isLoggedIn, async (req, res, next) => {
         next(err);
     }
 });
-
-// 내가 작성한 1대1 문의 조회
+//내가 작성한 문의 
 router.get('/myInquirys', async (req, res,next) => {
     try {
-        const myInquirys = await Inquiry.findAll({
+        const result = await Inquiry.findAll({
             where: { userId: req.user.id }
         });
 
-        if (myInquirys) res.json(myInquirys);
-        else nextres.status(409).json({"result": "fail", "error": '작성한 문의를 찾을 수 없습니다.' });
+        if (result) res.json(result);
+        else next('There is no Inquirys');
     } catch (err) {
         console.error(err);
         next(err);

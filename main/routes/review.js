@@ -5,7 +5,7 @@ const { isLoggedIn } = require('./helpers');
 
 const router = express.Router();
 
-// 나의 리뷰 수정
+//리뷰 수정
 router.post('/update',isLoggedIn,async (req, res, next) => {
     try {
         const result = await Review.update({
@@ -25,7 +25,7 @@ router.post('/update',isLoggedIn,async (req, res, next) => {
     }
 });
 
-// 나의 리뷰 삭제
+//리뷰 삭제
 router.get('/delete/:id',isLoggedIn, async (req, res, next) => {
     try {
         const result = await Review.destroy({
@@ -39,9 +39,8 @@ router.get('/delete/:id',isLoggedIn, async (req, res, next) => {
         next(err);
     }
 });
-
-// 나의 리뷰 전체 조회
-router.get('/myReviews', isLoggedIn, async (req, res,next) => {
+//내가 작성한 리뷰 조회
+router.get('/myReviews', async (req, res,next) => {
     try {
         const result = await Review.findAll({
             where: { userId: req.user.id }

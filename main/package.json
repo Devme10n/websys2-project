@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon"
   },
-  "author": "",
+  "author": "Prof. Wonvin Kim, Computer Software, Korean Bibie University",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
