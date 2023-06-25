@@ -1,1 +1,3 @@
-node_module
+main/node_modules
+main/package-lock.json
+desktop.ini
