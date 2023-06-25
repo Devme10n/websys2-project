@@ -37,7 +37,7 @@ module.exports = class User extends Sequelize.Model {
         db.User.hasMany(db.Order, { foreignKey: 'userId', sourceKey: 'id' });
         db.User.hasMany(db.Cart, { foreignKey: 'userId', sourceKey: 'id' });
         db.User.hasMany(db.Inquiry, { foreignKey: 'userId', sourceKey: 'id' });
-        db.User.hasMany(db.Pick, { foreignKey: 'userId', sourceKey: 'id' });
+        db.User.hasMany(db.wishList, { foreignKey: 'userId', sourceKey: 'id' });
         db.User.hasOne(db.Coupon, { foreignKey: 'userId', sourceKey: 'id' });
     }
 };

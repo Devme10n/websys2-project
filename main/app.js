@@ -19,7 +19,7 @@ const couponRouter = require('./routes/coupon');
 const categoryRouter = require('./routes/category');
 const reviewRouter = require('./routes/review');
 const productRouter = require('./routes/product');
-const pickRouter = require('./routes/pick');
+const wishListRouter = require('./routes/wishList');
 const orderRouter = require('./routes/order');
 const inquiryRouter = require('./routes/inquiry');
 
@@ -67,7 +67,7 @@ app.use('/coupon',couponRouter);
 app.use('/category',categoryRouter);
 app.use('/product', productRouter);
 app.use('/review', reviewRouter);
-app.use('/pick', pickRouter);
+app.use('/wishList', wishListRouter);
 app.use('/order',orderRouter);
 app.use('/inquiry',inquiryRouter);
 
