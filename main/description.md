@@ -52,7 +52,7 @@ passport.use(new Strategy({
     usernameField: 'id',
     passwordField: 'password'
 }, async (id, password, done) => {
-    // 로그인 전략 완료 시, 사용자 (user) 객체와 함께 done 함수 호출
+    // 로그인 전략 완료 시, 회원 (user) 객체와 함께 done 함수 호출
     done(null, user);
 }));
 ```
@@ -61,7 +61,7 @@ passport.use(new Strategy({
 
 ```
 passport.authenticate('local', (error, user, info) => {
-    // 로그인 성공 시, 사용자 (user) 객체와 함께 req.login 호출
+    // 로그인 성공 시, 회원 (user) 객체와 함께 req.login 호출
     req.login(user);
 
     // 로그인 실패 시, 로그인 실패 정보와 함께 next 함수 호출
@@ -72,18 +72,18 @@ passport.authenticate('local', (error, user, info) => {
 5. req.login이 passport.serializeUser를 호출함
 
 passport.serializeUser((user, done) => {
-    // req.session 객체에 저장할 사용자 아이디 (user.id)와 함께 done 함수 호출 
+    // req.session 객체에 저장할 회원 아이디 (user.id)와 함께 done 함수 호출 
     done(null, user.id);
 });
 
-6. req.session 객체에 사용자 아이디 (user.id)를 저장 후 로그인 완료
+6. req.session 객체에 회원 아이디 (user.id)를 저장 후 로그인 완료
 
 
 - 로그인 이후 과정
 
 1. 모든 요청에 passport.session() 미들웨어가 passport deserializeUser 호출
 
-2. req.session 객체에 저장된 사용자 아이디 (user.id)로 사용자 정보 (user 객체) 조회
+2. req.session 객체에 저장된 회원 아이디 (user.id)로 회원 정보 (user 객체) 조회
 
 ```
 passport.deserializeUser((id, done) => {
@@ -92,5 +92,5 @@ passport.deserializeUser((id, done) => {
 });
 ```
 
-3. 조회된 사용자 정보 (user 객체)가 req.user 객체에 저장됨
+3. 조회된 회원 정보 (user 객체)가 req.user 객체에 저장됨
 4. 미들웨어에서 req.user 객체 사용 가능

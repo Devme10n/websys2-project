@@ -19,16 +19,6 @@ module.exports = class Order extends Sequelize.Model {
             totalPrice: {
                 type: Sequelize.INTEGER,
                 allowNull: false
-            },
-            orderState: {
-                type: Sequelize.TEXT,
-                allowNull: true,
-                defaultValue: null
-            },
-            orderStateDescription: {
-                type: Sequelize.TEXT,
-                allowNull: true,
-                defaultValue: null
             }
         }, {
         sequelize,
