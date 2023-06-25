@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = class Pick extends Sequelize.Model {
+module.exports = class wishList extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             userId: {
@@ -19,8 +19,8 @@ module.exports = class Pick extends Sequelize.Model {
         }, {
         sequelize,
         timestamps: false,
-        modelName: 'Pick',
-        tableName: 'picks',
+        modelName: 'wishList',
+        tableName: 'wishLists',
         paranoid: false,
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
@@ -28,7 +28,7 @@ module.exports = class Pick extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.Pick.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
-        db.Pick.belongsTo(db.Product, { foreignKey: 'productId', targetKey: 'id' });
+        db.wishList.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
+        db.wishList.belongsTo(db.Product, { foreignKey: 'productId', targetKey: 'id' });
     }
 };
