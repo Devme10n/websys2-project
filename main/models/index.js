@@ -6,7 +6,7 @@ const Review = require('./review');
 const Order = require('./order');
 const Cart = require('./carts');
 const Inquiry = require('./inquiry');
-const Pick = require('./pick');
+const WishList = require('./wishList');
 const Coupon = require('./coupon');
 
 const env = process.env.NODE_ENV || 'development';
@@ -27,7 +27,7 @@ db.Review = Review;
 db.Order = Order;
 db.Cart = Cart;
 db.Inquiry = Inquiry;
-db.Pick = Pick;
+db.WishList = WishList;
 db.Coupon = Coupon;
 
 User.init(sequelize);
@@ -37,7 +37,7 @@ Review.init(sequelize);
 Order.init(sequelize);
 Cart.init(sequelize);
 Inquiry.init(sequelize);
-Pick.init(sequelize);
+WishList.init(sequelize);
 Coupon.init(sequelize);
 
 User.associate(db);
@@ -47,7 +47,7 @@ Review.associate(db);
 Order.associate(db);
 Cart.associate(db);
 Inquiry.associate(db);
-Pick.associate(db);
+WishList.associate(db);
 Coupon.associate(db);
 
 module.exports = db;
