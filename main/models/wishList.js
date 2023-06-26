@@ -19,7 +19,7 @@ module.exports = class wishList extends Sequelize.Model {
         }, {
         sequelize,
         timestamps: false,
-        modelName: 'wishList',
+        modelName: 'WishList',
         tableName: 'wishLists',
         paranoid: false,
         charset: 'utf8mb4',
@@ -28,7 +28,7 @@ module.exports = class wishList extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.wishList.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
-        db.wishList.belongsTo(db.Product, { foreignKey: 'productId', targetKey: 'id' });
+        db.WishList.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
+        db.WishList.belongsTo(db.Product, { foreignKey: 'productId', targetKey: 'id' });
     }
 };
