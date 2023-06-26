@@ -3,7 +3,7 @@ const { Product, Category } = require('../models');
 
 const router = express.Router();
 
-// 카테고리 목록 조회
+// 카테고리 조회
 router.get('/', async (req, res, next) => {
     try {
         const categoryList = await Category.findAll({
