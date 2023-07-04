@@ -18,7 +18,7 @@ User 테이블과 Product 테이블을 연결하는 관계를 다대다 관계�
 
 #### 사용자 인증 시스템
 <details>
-<summary>API 요청과 데이터베이스 액세스를 제한하기 위해서 세션과 passport를 사용하여 안전한 사용자 인증 시스템 구현</summary>
+<summary>API 요청과 DB 액세스를 제한하기 위해서 세션과 passport를 사용하여 사용자 인증 시스템 구현</summary>
 <div markdown="1">
     
 passport를 모듈화하여 사용중
