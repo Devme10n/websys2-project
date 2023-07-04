@@ -1,6 +1,7 @@
 # websys2-project
-
 : 쇼핑몰 API 설계 프로젝트
+
+### [REST API 명세서](https://documenter.getpostman.com/view/24114901/2s93sc4YLZ)
 
 ### 핵심기능
 
@@ -15,9 +16,6 @@
 ### ERD
 
 ![ERD](https://github.com/max990624/websys2-project/assets/39523433/5bc03a96-d00d-4139-9365-653b66037773)
-
-
-### [REST API 명세서](https://documenter.getpostman.com/view/24114901/2s93sc4YLZ)
 
 
 ### 깃 커밋 규칙
