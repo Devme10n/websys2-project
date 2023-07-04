@@ -22,27 +22,27 @@ User 테이블과 Product 테이블을 연결하는 관계를 다대다 관계�
 <div markdown="1">
     
 passport를 모듈화하여 사용중
-const passport = require('passport');
-const local = require('./local');
-const kakao = require('./kakao');
-const User = require('../models/user');
+    const passport = require('passport');
+    const local = require('./local');
+    const kakao = require('./kakao');
+    const User = require('../models/user');
 
-module.exports = () => {
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
+    module.exports = () => {
+          passport.serializeUser((user, done) => {
+            done(null, user.id);
+          });
 
-  passport.deserializeUser((id, done) => {
-    User.findOne({
-      where: { id }
-    })
-    .then(user => done(null, user))
-    .catch(err => done(err));
-  });
+    passport.deserializeUser((id, done) => {
+        User.findOne({
+          where: { id }
+        })
+        .then(user => done(null, user))
+        .catch(err => done(err));
+      });
 
-  local();
-  kakao();
-};
+      local();
+      kakao();
+    };
 
 
 </div>
