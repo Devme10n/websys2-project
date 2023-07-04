@@ -21,9 +21,29 @@ User 테이블과 Product 테이블을 연결하는 관계를 다대다 관계�
 <summary>API 요청과 데이터베이스 액세스를 제한하기 위해서 세션과 passport를 사용하여 안전한 사용자 인증 시스템 구현</summary>
 <div markdown="1">
     
-    ![image](https://github.com/max990624/websys2-project/assets/113909192/170ca1f1-cd84-4b56-8206-b4f12d826bcd)
-
 passport를 모듈화하여 사용중
+const passport = require('passport');
+const local = require('./local');
+const kakao = require('./kakao');
+const User = require('../models/user');
+
+module.exports = () => {
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser((id, done) => {
+    User.findOne({
+      where: { id }
+    })
+    .then(user => done(null, user))
+    .catch(err => done(err));
+  });
+
+  local();
+  kakao();
+};
+
 
 </div>
 </details>
