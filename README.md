@@ -22,10 +22,6 @@ User 테이블과 Product 테이블을 연결하는 관계를 다대다 관계�
 <div markdown="1">
     
 passport를 모듈화하여 사용중
-    const passport = require('passport');
-    const local = require('./local');
-    const kakao = require('./kakao');
-    const User = require('../models/user');
 
     module.exports = () => {
           passport.serializeUser((user, done) => {
