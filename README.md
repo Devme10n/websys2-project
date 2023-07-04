@@ -3,15 +3,48 @@
 
 ### [REST API 명세서](https://documenter.getpostman.com/view/24114901/2s93sc4YLZ)
 
-### 핵심기능
+### 핵심코드
 
-- 로그인
-- 장바구니에 물품 등록
-- 물품 주문
-- 물품 교환/환불
-- 쿠폰
-- 1대1 문의
-- 리뷰
+User 테이블과 Product 테이블을 연결하는 관계를 다대다 관계가 아닌 일대다,다대 일로 변경하여 칼럼을 추가하거나 맵핑하기 용이하게 작성함.
+ex)
+    static associate(db) {
+        db.Order.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
+        db.Order.belongsTo(db.Product, { foreignKey: 'productId', targetKey: 'id' });
+    }
+
+API 요청과 데이터베이스 액세스를 제한하기 위해서 세션과 passport를 사용하여 안전한 사용자 인증 시스템 구현.
+<details>
+<summary>여기를 눌러주세요</summary>
+<div markdown="1">       
+패스포트 처리를 모듈화 함
+
+const passport = require('passport');
+const local = require('./local');
+const kakao = require('./kakao');
+const User = require('../models/user');
+
+module.exports = () => {
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser((id, done) => {
+    User.findOne({
+      where: { id }
+    })
+    .then(user => done(null, user))
+    .catch(err => done(err));
+  });
+
+  local();
+  kakao();
+};
+
+
+</div>
+</details>
+
+
 
 ### ERD
 
